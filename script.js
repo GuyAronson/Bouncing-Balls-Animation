@@ -30,6 +30,22 @@ function AddVelocity(circle){
 		circle.y += circle.dy;
 		Draw(circle);
 }
+function Update(){
+	cx.clearRect(0,0,canvas.width,canvas.height);
+	for (var i = 0; i < balls.length; i++) {
+			if(balls[i].x + balls[i].radius/2 >= canvas.width || balls[i].x + balls[i].radius/2 <= 0)
+			{
+			 	balls[i].dx = -balls[i].dx
+			}
+			if(balls[i].y + balls[i].radius/2 >= canvas.height || balls[i].y + balls[i].radius/2 <=0 ){
+			 	balls[i].dy = -balls[i].dy
+			}
+			AddVelocity(balls[i]);
+		// }
+	}
+
+	requestAnimationFrame(Update);
+}
 
 var balls =[];
 for(let i=0; i<20;i++){
@@ -52,23 +68,6 @@ document.onkeydown= function(e){
 	let y = Math.random() * canvas.height;
 	if(e.keyCode == 32)
 		balls.push(new Circle(x, y, r, 'green'));
-}
-
-function Update(){
-	cx.clearRect(0,0,canvas.width,canvas.height);
-	for (var i = 0; i < balls.length; i++) {
-			if(balls[i].x + balls[i].radius/2 >= canvas.width || balls[i].x + balls[i].radius/2 <= 0)
-			{
-			 	balls[i].dx = -balls[i].dx
-			}
-			if(balls[i].y + balls[i].radius/2 >= canvas.height || balls[i].y + balls[i].radius/2 <=0 ){
-			 	balls[i].dy = -balls[i].dy
-			}
-			AddVelocity(balls[i]);
-		// }
-	}
-
-	requestAnimationFrame(Update);
 }
 
 Update();
